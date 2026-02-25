@@ -360,6 +360,7 @@ final class DemoSourceRunner: Runner, Sendable {
                 url: URL(string: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"),
                 format: "hls",
                 quality: "Auto",
+                audioLanguage: "en",
                 subtitles: [
                     .init(
                         url: URL(string: "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hq_7.m3u8"),

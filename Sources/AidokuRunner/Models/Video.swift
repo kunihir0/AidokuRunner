@@ -11,6 +11,7 @@ public struct Video: Sendable, Hashable, Codable {
     public var url: URL?
     public var format: String
     public var quality: String
+    public var audioLanguage: String
     public var subtitles: [Subtitle]?
     public var headers: [String: String]?
 
@@ -18,12 +19,14 @@ public struct Video: Sendable, Hashable, Codable {
         url: URL? = nil,
         format: String,
         quality: String,
+        audioLanguage: String,
         subtitles: [Subtitle]? = nil,
         headers: [String: String]? = nil
     ) {
         self.url = url
         self.format = format
         self.quality = quality
+        self.audioLanguage = audioLanguage
         self.subtitles = subtitles
         self.headers = headers
     }
@@ -46,6 +49,7 @@ struct VideoCodable: Sendable, Hashable, Codable {
     @URLAsString var url: URL?
     var format: String
     var quality: String
+    var audioLanguage: String
     var subtitles: [SubtitleCodable]?
     var headers: [String: String]?
 
@@ -54,6 +58,7 @@ struct VideoCodable: Sendable, Hashable, Codable {
             url: url,
             format: format,
             quality: quality,
+            audioLanguage: audioLanguage,
             subtitles: subtitles?.compactMap { $0.into(store: store) },
             headers: headers
         )
