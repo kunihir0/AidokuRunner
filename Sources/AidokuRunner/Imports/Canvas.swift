@@ -97,7 +97,7 @@ extension Canvas {
         translateY: Float32,
         scaleX: Float32,
         scaleY: Float32,
-        rotateAngle: Float32,
+        rotateAngle: Float32
     ) -> Int32 {
         guard let context = (store.fetch(from: contextPtr) as? CGContextHolder)?.context else {
             return Result.invalidContext.rawValue
@@ -230,7 +230,7 @@ extension Canvas {
         memory: Memory,
         contextPtr: Int32,
         pathPtr: Int32,
-        stylePtr: Int32,
+        stylePtr: Int32
     ) -> Int32 {
         guard let context = (store.fetch(from: contextPtr) as? CGContextHolder)?.context else {
             return Result.invalidContext.rawValue

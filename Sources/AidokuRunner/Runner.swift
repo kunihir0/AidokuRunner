@@ -16,6 +16,7 @@ public protocol Runner: Sendable {
     func getSearchMangaList(query: String?, page: Int, filters: [FilterValue]) async throws -> MangaPageResult
     func getMangaUpdate(manga: Manga, needsDetails: Bool, needsChapters: Bool) async throws -> Manga
     func getPageList(manga: Manga, chapter: Chapter) async throws -> [Page]
+    func getVideoList(manga: Manga, chapter: Chapter) async throws -> [Video]
 
     func getMangaList(listing: Listing, page: Int) async throws -> MangaPageResult
     func getHome() async throws -> Home
@@ -43,6 +44,10 @@ public extension Runner {
     var partialMangaPublisher: SinglePublisher<Manga>? { nil }
 
     func getMangaList(listing _: Listing, page _: Int) throws -> MangaPageResult {
+        throw SourceError.unimplemented
+    }
+
+    func getVideoList(manga _: Manga, chapter _: Chapter) throws -> [Video] {
         throw SourceError.unimplemented
     }
 

@@ -73,6 +73,7 @@ public actor Interpreter {
         let dynamicSettings = (try? module.findFunction(name: "get_settings")) != nil
         let dynamicListings = (try? module.findFunction(name: "get_listings")) != nil
         let processesPages = (try? module.findFunction(name: "process_page_image")) != nil
+        let providesVideoList = (try? module.findFunction(name: "get_video_list")) != nil
         let providesImageRequests = (try? module.findFunction(name: "get_image_request")) != nil
         let providesPageDescriptions = (try? module.findFunction(name: "get_page_description")) != nil
         let providesAlternateCovers = (try? module.findFunction(name: "get_alternate_covers")) != nil
@@ -98,7 +99,8 @@ public actor Interpreter {
             handlesDeepLinks: handlesDeepLinks,
             handlesBasicLogin: handlesBasicLogin,
             handlesWebLogin: handlesWebLogin,
-            handlesMigration: handlesMigration
+            handlesMigration: handlesMigration,
+            providesVideoList: providesVideoList
         )
 
         try start()
@@ -155,6 +157,19 @@ extension Interpreter: Runner {
         let result: Int32 = try function.call(mangaPointer, chapterPointer)
         let data = try handleResult(result: result)
         return try PostcardDecoder().decode([PageCodable].self, from: data).compactMap { $0.into(store: store) }
+    }
+
+    public func getVideoList(manga: Manga, chapter: Chapter) throws -> [Video] {
+        let function = try module.findFunction(name: "get_video_list")
+        var newManga = manga
+        newManga.chapters = nil
+        let mangaPointer = try store.storeEncoded(newManga)
+        defer { store.remove(at: mangaPointer) }
+        let chapterPointer = try store.storeEncoded(chapter)
+        defer { store.remove(at: chapterPointer) }
+        let result: Int32 = try function.call(mangaPointer, chapterPointer)
+        let data = try handleResult(result: result)
+        return try PostcardDecoder().decode([VideoCodable].self, from: data).compactMap { $0.into(store: store) }
     }
 
     public func getMangaList(listing: Listing, page: Int) throws -> MangaPageResult {

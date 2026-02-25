@@ -344,6 +344,13 @@ public extension Source {
         try await runner.getPageList(manga: manga, chapter: chapter)
     }
 
+    func getVideoList(manga: Manga, chapter: Chapter) async throws -> [Video] {
+        guard runner.features.providesVideoList else {
+            throw SourceError.unimplemented
+        }
+        return try await runner.getVideoList(manga: manga, chapter: chapter)
+    }
+
     func getMangaList(listing: Listing, page: Int) async throws -> MangaPageResult {
         guard runner.features.providesListings else {
             throw SourceError.unimplemented

@@ -23,6 +23,7 @@ public struct SourceFeatures: Sendable {
     public let handlesBasicLogin: Bool
     public let handlesWebLogin: Bool
     public let handlesMigration: Bool
+    public let providesVideoList: Bool
 
     public init(
         providesListings: Bool = false,
@@ -39,7 +40,8 @@ public struct SourceFeatures: Sendable {
         handlesDeepLinks: Bool = false,
         handlesBasicLogin: Bool = false,
         handlesWebLogin: Bool = false,
-        handlesMigration: Bool = false
+        handlesMigration: Bool = false,
+        providesVideoList: Bool = false
     ) {
         self.providesListings = providesListings
         self.providesHome = providesHome
@@ -56,5 +58,6 @@ public struct SourceFeatures: Sendable {
         self.handlesBasicLogin = handlesBasicLogin
         self.handlesWebLogin = handlesWebLogin
         self.handlesMigration = handlesMigration
+        self.providesVideoList = providesVideoList
     }
 }

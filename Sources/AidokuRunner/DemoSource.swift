@@ -97,6 +97,7 @@ final class DemoSourceRunner: Runner, Sendable {
         providesListings: true,
         providesHome: true,
         providesPageDescriptions: true,
+        providesVideoList: true
     )
 
     let partialHomePublisher: SinglePublisher<Home>? = nil
@@ -351,5 +352,22 @@ final class DemoSourceRunner: Runner, Sendable {
 
     func getPageDescription(page _: Page) throws -> String? {
         "Description"
+    }
+
+    func getVideoList(manga _: Manga, chapter _: Chapter) throws -> [Video] {
+        [
+            .init(
+                url: URL(string: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"),
+                format: "hls",
+                quality: "Auto",
+                subtitles: [
+                    .init(
+                        url: URL(string: "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hq_7.m3u8"),
+                        language: "en",
+                        format: "vtt"
+                    )
+                ]
+            )
+        ]
     }
 }
